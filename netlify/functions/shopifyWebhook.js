@@ -35,10 +35,20 @@ exports.handler = async (event) => {
     }
 
     const order = JSON.parse(event.body || "{}");
-    
-    // Only fire if payment is captured
-    if (order.financial_status !== "paid") {
-      return { statusCode: 200, body: JSON.stringify({ ignored: true, reason: "not paid" }) };
+
+    // 🔒 Extra filter: ignore if not paid OR if COD
+    if (
+      order.financial_status !== "paid" ||
+      (order.gateway && order.gateway.toLowerCase().includes("cod"))
+    ) {
+      console.log("⚠️ Ignored order:", {
+        financial_status: order.financial_status,
+        gateway: order.gateway,
+      });
+      return {
+        statusCode: 200,
+        body: JSON.stringify({ ignored: true, reason: "not paid or COD" }),
+      };
     }
 
     console.log("📦 Incoming Shopify payload:", order);
@@ -123,4 +133,3 @@ exports.handler = async (event) => {
     return { statusCode: 500, body: err.toString() };
   }
 };
-
