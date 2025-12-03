@@ -2,7 +2,7 @@
 const crypto = require("crypto");
 
 // ENV VARS (set in Netlify → Environment Variables)
-const META_PIXEL_ID = process.env.META_PIXEL_ID;           // e.g. 4321219291479784
+const META_PIXEL_ID = process.env.META_PIXEL_ID;           // e.g. 1562008814991248
 const META_ACCESS_TOKEN = process.env.META_ACCESS_TOKEN;   // Your Meta CAPI token
 const SHOPIFY_WEBHOOK_SECRET = process.env.SHOPIFY_WEBHOOK_SECRET || ""; 
 const META_TEST_EVENT_CODE = process.env.META_TEST_EVENT_CODE || ""; // optional (for testing)
